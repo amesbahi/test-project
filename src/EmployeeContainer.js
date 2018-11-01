@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 
-import Employee from './Employee'
+import Employees from './Employees'
 
-class EmployeeList extends Component {
+class EmployeeContainer extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
-            employees: []
+            employees: [],
+            randomEmployees: []
         }
 
         this.clickPlay = this.clickPlay.bind(this)
@@ -22,7 +23,6 @@ class EmployeeList extends Component {
                 this.setState({
                     employees: responseData
                 })
-                console.log(this.state.employees)
             })
             .catch(error => {
                 console.log('Error fetching and parsing requested data', error)
@@ -37,20 +37,11 @@ class EmployeeList extends Component {
                         <li onClick={this.clickPlay}>Begin Play</li>
                     </ul>
                 </nav>
-                {/*Render Employee component here as list*/}
-                {this.state.employees.map(employee => {
-                    console.log(employee)
-                    return (
-                        <div key={employee.id}>
-                            <h2></h2>
-                            <Employee {...employee} />
-                        </div>
-                    )
-                })}
+                <Employees {...this.state} />
             </div>
         )
     }
 
 }
 
-export default EmployeeList
+export default EmployeeContainer
