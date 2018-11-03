@@ -75,7 +75,7 @@ class EmployeeContainer extends Component {
         return (
             <div className="container">
                 <button onClick={this.clickPlay}>Begin Play</button>
-                {this.state.isHidden === false ? <Employees {...this.state} randomEmployees={this.randomEmployees} randomEmployee={this.randomEmployee} /> : null}
+                {this.state.isHidden === false ? <Employees randomEmployees={this.randomEmployees} randomEmployee={this.randomEmployee} /> : null}
             </div>
         )
     }
