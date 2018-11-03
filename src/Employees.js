@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { relative } from 'path';
 
 class Employees extends Component {
     constructor(props) {
@@ -19,6 +20,13 @@ class Employees extends Component {
     }
 
     render() {
+        const style = {
+            width: '250px',
+            height: '250px',
+            position: relative,
+            margin: '5px'
+        }
+
         return (
             <div className="cards">
                 {/* Return a random name and ask who this person is */}
@@ -26,7 +34,7 @@ class Employees extends Component {
                 {/*Render shuffled randomEmployees array here*/}
                 {this.props.randomEmployees.map(employee => {
                     return (
-                        <img onClick={this.clickEmployee} src={employee.headshot.url} alt={employee.headshot.alt} key={employee.id}></img>
+                        <img style={style} onClick={this.clickEmployee} src={employee.headshot.url} alt={employee.headshot.alt} key={employee.id}></img>
                     )
                 })}
             </div>
