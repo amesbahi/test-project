@@ -18,25 +18,6 @@ class EmployeeContainer extends Component {
         this.generateRandomEmployees = this.generateRandomEmployees.bind(this)
     }
 
-    clickPlay() {
-        fetch('https://willowtreeapps.com/api/v1.0/profiles/')
-            // take the response from the API and return a JSON object
-            .then(response => response.json())
-            // pass data in JSON format to next promise
-            .then(responseData => {
-                this.setState({
-                    employees: responseData
-                })
-                console.log(this.state)
-                this.generateRandomEmployees()
-                console.log(this.randomEmployees)
-                this.setState({isHidden: false})
-            })
-            .catch(error => {
-                console.log('Error fetching and parsing requested data', error)
-            })
-    }
-
     // generate random list of employees
     generateRandomEmployees() {
         // select a random employee
@@ -71,11 +52,30 @@ class EmployeeContainer extends Component {
         this.randomEmployees = shuffledRandomEmployees
     }
 
+    clickPlay() {
+        fetch('https://willowtreeapps.com/api/v1.0/profiles/')
+            // take the response from the API and return a JSON object
+            .then(response => response.json())
+            // pass data in JSON format to next promise
+            .then(responseData => {
+                this.setState({
+                    employees: responseData
+                })
+                console.log(this.state)
+                this.generateRandomEmployees()
+                console.log(this.randomEmployees)
+                this.setState({ isHidden: false })
+            })
+            .catch(error => {
+                console.log('Error fetching and parsing requested data', error)
+            })
+    }
+
     render() {
         return (
             <div className="container">
                 <button onClick={this.clickPlay}>Begin Play</button>
-                {this.state.isHidden === false ? <Employees {...this.state} randomEmployees={this.randomEmployees} randomEmployee={this.randomEmployee} clickPlay={this.clickPlay} /> : null}
+                {this.state.isHidden === false ? <Employees {...this.state} randomEmployees={this.randomEmployees} randomEmployee={this.randomEmployee} /> : null}
             </div>
         )
     }
