@@ -99,10 +99,18 @@ class EmployeeContainer extends Component {
             .then(response => response.json())
             // pass data in JSON format to next promise
             .then(responseData => {
-                this.setState({
-                    employees: responseData
+                // filter out past employees from state
+                let filteredResponse = responseData.filter((employee) => {
+                    if (typeof employee.jobTitle !== 'undefined') {
+                        return employee
+                    }
+                    return filteredResponse
                 })
-                console.log(this.state)
+                console.log(filteredResponse)
+                this.setState({
+                    employees: filteredResponse
+                })
+                console.log(this.state.employees)
                 this.generateRandomEmployees()
                 console.log(this.randomEmployees)
                 this.setState({ isHidden: false })
