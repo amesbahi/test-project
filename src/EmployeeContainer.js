@@ -6,12 +6,13 @@ class EmployeeContainer extends Component {
     constructor(props) {
         super(props)
 
-        // Holds the state for employees retreived from API; hidden state for
-        // Employees child until the user clicks the play button; the number of
-        // correct and incorrect guesses made, populated by the updateCorrect
-        // and updateIncorrect methods that are called when the user clicks the
-        // employee image on the child Employees component. Correct and incorrect
-        // state is populated by the correct- and incorrectArray props
+        // Holds the filtered state for employees retreived from API; hidden 
+        // state for Employees child component until the user clicks the play 
+        // button; the number of correct and incorrect guesses made, populated 
+        // by the updateCorrect and updateIncorrect methods that are called when 
+        // the user clicks the employee image on the child Employees component. 
+        // Correct and incorrect state is populated by the correct- and 
+        // incorrectArray props
         this.state = {
             employees: [],
             isHidden: true,
@@ -31,6 +32,7 @@ class EmployeeContainer extends Component {
         this.randomEmployees = []
         this.randomEmployee = []
 
+        // Bind methods to component scope
         this.clickPlay = this.clickPlay.bind(this)
         this.generateOneRandomEmployee = this.generateOneRandomEmployee.bind(this)
         this.generateRandomEmployees = this.generateRandomEmployees.bind(this)
@@ -38,42 +40,37 @@ class EmployeeContainer extends Component {
         this.updateIncorrectState = this.updateIncorrectState.bind(this)
     }
 
-    // generate one random employee
+    // Generate one random employee
     generateOneRandomEmployee() {
-        // select a random employee
+        // Select a random employee
         this.randomEmployee = this.state.employees[Math.floor(Math.random() * this.state.employees.length)]
-        console.log(this.randomEmployee)
         return this.randomEmployee
     }
 
-    // generate random list of employees
+    // Generate random list of employees
     generateRandomEmployees() {
-        // create array to hold random employees, including the selected one
+        // Create array to hold random employees, including the selected one
         const randomEmployeesArr = []
 
         // Add the random employee to the array
         randomEmployeesArr.push(this.generateOneRandomEmployee())
 
-        // shuffle employees from state and add 4 into randomEmployees array
-        for (var i = 0; randomEmployeesArr.length <= 4; i++) {
+        // Shuffle employees from state and add 4 into randomEmployees array
+        for (let i = 0; randomEmployeesArr.length <= 4; i++) {
             let randomIndex = Math.floor(Math.random() * this.state.employees.length)
             let element = this.state.employees.splice(randomIndex, 1)
-            console.log(element)
             randomEmployeesArr.push(element[0])
         }
 
-        console.log(randomEmployeesArr)
-
-        // shuffle the randomEmployees array before rendering
+        // Shuffle the randomEmployees array before rendering
         const shuffledRandomEmployees = []
 
-        for (var j = 0; shuffledRandomEmployees.length <= 4; j++) {
+        for (let i = 0; shuffledRandomEmployees.length <= 4; i++) {
             let randomIndex = Math.floor(Math.random() * randomEmployeesArr.length)
             let element = randomEmployeesArr.splice(randomIndex, 1)
             shuffledRandomEmployees.push(element[0])
         }
 
-        console.log(shuffledRandomEmployees)
         this.randomEmployees = shuffledRandomEmployees
     }
 
@@ -95,9 +92,9 @@ class EmployeeContainer extends Component {
 
     clickPlay() {
         fetch('https://willowtreeapps.com/api/v1.0/profiles/')
-            // take the response from the API and return a JSON object
+            // Take the response from the API and return a JSON object
             .then(response => response.json())
-            // pass data in JSON format to next promise
+            // Pass data in JSON format to next promise
             .then(responseData => {
                 // filter out past employees from state
                 let filteredResponse = responseData.filter((employee) => {
@@ -106,13 +103,10 @@ class EmployeeContainer extends Component {
                     }
                     return filteredResponse
                 })
-                console.log(filteredResponse)
                 this.setState({
                     employees: filteredResponse
                 })
-                console.log(this.state.employees)
                 this.generateRandomEmployees()
-                console.log(this.randomEmployees)
                 this.setState({ isHidden: false })
             })
             .catch(error => {
@@ -124,7 +118,13 @@ class EmployeeContainer extends Component {
         return (
             <div className="container">
                 <button onClick={this.clickPlay}>Begin Play</button>
-                {this.state.isHidden === false ? <Employees {...this.state} updateIncorrectState={this.updateIncorrectState} updateCorrectState={this.updateCorrectState} randomEmployees={this.randomEmployees} randomEmployee={this.randomEmployee} /> : null}
+                {this.state.isHidden === false ? 
+                <Employees 
+                {...this.state} 
+                updateIncorrectState={this.updateIncorrectState} 
+                updateCorrectState={this.updateCorrectState} 
+                randomEmployees={this.randomEmployees} 
+                randomEmployee={this.randomEmployee} /> : null}
             </div>
         )
     }
