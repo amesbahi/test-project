@@ -11,4 +11,4 @@ https://nodejs.org/en/download/
 https://www.npmjs.com/get-npm
 
 To run the app, first clone this repository, change directory into the repository,
-run `npm install` to install the necessary dependecies, and finally run `npm start` to run the application.
+run `npm install` to install the necessary dependencies, and finally run `npm start` to run the application.
