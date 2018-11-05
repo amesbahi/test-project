@@ -79,7 +79,6 @@ class EmployeeContainer extends Component {
         this.setState({
             correct: this.correctArray
         })
-        return this.state.correct.length
     }
 
     updateIncorrectState() {
@@ -87,7 +86,6 @@ class EmployeeContainer extends Component {
         this.setState({
             incorrect: this.incorrectArray
         })
-        return this.state.incorrect.length
     }
 
     clickPlay() {
@@ -96,7 +94,7 @@ class EmployeeContainer extends Component {
             .then(response => response.json())
             // Pass data in JSON format to next promise
             .then(responseData => {
-                // filter out past employees from state
+                // filter out past employees before setting state
                 let filteredResponse = responseData.filter((employee) => {
                     if (typeof employee.jobTitle !== 'undefined') {
                         return employee
